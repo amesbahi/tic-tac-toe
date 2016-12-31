@@ -8,7 +8,7 @@ var ticTacToeModule = +function() {
     var screenStartDiv = document.getElementById('start');
     var playerListItem1 = document.getElementById("player1");
     var playerListItem2 = document.getElementById("player2");
-    var box = document.getElementsByClassName("box");
+    var boxes = document.getElementsByClassName("boxes")[0];
 
     // When the page loads, the startup screen should appear.
     window.onload = function() {
@@ -65,11 +65,11 @@ var ticTacToeModule = +function() {
 
     // On hover functions for each player to display the symbols on the boxes
     var oHover = function() {
-        box.style.backgroundImage = "url(../img/o.svg)";
+        boxes.style.backgroundImage = "url(../img/o.svg)";
     }
 
     var xHover = function() {
-        box.style.backgroundImage = "url(../img/x.svg)";
+        boxes.style.backgroundImage = "url(../img/x.svg)";
     }
 
     if (playerO.turn == true) {
@@ -85,12 +85,20 @@ var ticTacToeModule = +function() {
     }
 
     // If X or O hovers over a box, display the symbol for that box
-    box.addEventListener('mouseover', function(event) {
+    boxes.addEventListener('mouseover', function(event) {
         // if O is true if O hovers show the symbol in the box
         if (playerO.turn == true) {
-            oHover();
+            // loop over the boxes and find which one is hovered over, display the symbol
+            for (var i = 0; i < boxes.length; i++) {
+                var hoveredBox = boxes[i];
+            }
+            hoveredBox.oHover();
         } else if (playerX.turn == true) {
-            xHover();
+            // loop over the boxes and find which one is hovered over, display the symbol
+            for (var i = 0; i < boxes.length; i++) {
+                var hoveredBox = boxes[i];
+            }
+            hoveredBox.xHover();
         }
     }, false);
 }();
