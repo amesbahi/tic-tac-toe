@@ -64,11 +64,11 @@ var ticTacToeModule = +function() {
     playerO.turnTrue();
 
     // On hover functions for each player to display the symbols on the boxes
-    var oHover = function() {
+    var oHover = function(boxhoveredover) {
         boxes.style.backgroundImage = "url(../img/o.svg)";
     }
 
-    var xHover = function() {
+    var xHover = function(boxhoveredover) {
         boxes.style.backgroundImage = "url(../img/x.svg)";
     }
 
@@ -92,13 +92,13 @@ var ticTacToeModule = +function() {
             for (var i = 0; i < boxes.length; i++) {
                 var hoveredBox = boxes[i];
             }
-            hoveredBox.oHover();
+            oHover(hoveredBox);
         } else if (playerX.turn == true) {
             // loop over the boxes and find which one is hovered over, display the symbol
             for (var i = 0; i < boxes.length; i++) {
                 var hoveredBox = boxes[i];
             }
-            hoveredBox.xHover();
+            xHover(hoveredBox);
         }
     }, false);
 }();
