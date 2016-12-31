@@ -65,11 +65,11 @@ var ticTacToeModule = +function() {
 
     // On hover functions for each player to display the symbols on the boxes
     var oHover = function() {
-        box.style.backgroundImage = "url(img/o.svg)";
+        box.style.backgroundImage = "url(../img/o.svg)";
     }
 
     var xHover = function() {
-        box.style.backgroundImage = "url(img/x.svg)";
+        box.style.backgroundImage = "url(../img/x.svg)";
     }
 
     if (playerO.turn == true) {
@@ -85,7 +85,7 @@ var ticTacToeModule = +function() {
     }
 
     // If X or O hovers over a box, display the symbol for that box
-    box.addEventListener('mouseenter', function() {
+    box.addEventListener('mouseover', function(event) {
         // if O is true if O hovers show the symbol in the box
         if (playerO.turn == true) {
             oHover();
