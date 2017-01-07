@@ -9,6 +9,7 @@ var ticTacToeModule = +function() {
     var playerListItem1 = document.getElementById("player1");
     var playerListItem2 = document.getElementById("player2");
     var boxes = document.getElementsByClassName("boxes")[0];
+    console.log(boxes);
 
     // When the page loads, the startup screen should appear.
     window.onload = function() {
@@ -53,52 +54,52 @@ var ticTacToeModule = +function() {
     Player2.prototype = Object.create(PlayerObject.prototype);
 
     // Instantiating player objects "X" and "O".
-    var playerO = new Player1("O", "player1");
-    var playerX = new Player2("X", "player2");
+    var playerX = new Player1("X", "player1");
+    var playerO = new Player2("O", "player2");
     console.log(playerX);
     console.log(playerO);
 
     // If it's X's turn, set O turn to false; vice versa.
     // The current player is indicated at the top of the page -- the box with the symbol O or X 
     // is highlighted for the current player.
-    playerO.turnTrue();
+    playerX.turnTrue();
 
     // On hover functions for each player to display the symbols on the boxes
     var oHover = function(boxhoveredover) {
-        boxes.style.backgroundImage = "url(../img/o.svg)";
+        // loop over the boxes and find which one is hovered over, display the symbol
+        for (var i = 0; i < boxes.length; i++) {
+                var oHoveredBox = boxes[i];
+            }
+        oHoveredBox.style.backgroundImage = "url(../img/o.svg)";
     }
 
     var xHover = function(boxhoveredover) {
-        boxes.style.backgroundImage = "url(../img/x.svg)";
+        // loop over the boxes and find which one is hovered over, display the symbol
+        for (var i = 0; i < boxes.length; i++) {
+                var xHoveredBox = boxes[i];
+            }
+        xHoveredBox.style.backgroundImage = "url(../img/x.svg)";
     }
 
-    if (playerO.turn == true) {
-        playerX.turn = false;
-        // Highlight the box with O and make O active
-        playerO.active = true;
-        playerListItem1.className = "players active";
-    } else if (playerX.turn == true) {
+    if (playerX.turn == true) {
         playerO.turn = false;
         // Highlight the box with O and make O active
         playerX.active = true;
+        playerListItem1.className = "players active";
+    } else if (playerX.turn == false) {
+        playerO.turn = true;
+        // Highlight the box with O and make O active
+        playerX.active = false;
         playerListItem2.className = "players active";
     }
 
     // If X or O hovers over a box, display the symbol for that box
     boxes.addEventListener('mouseover', function(event) {
-        // if O is true if O hovers show the symbol in the box
-        if (playerO.turn == true) {
-            // loop over the boxes and find which one is hovered over, display the symbol
-            for (var i = 0; i < boxes.length; i++) {
-                var hoveredBox = boxes[i];
-            }
-            oHover(hoveredBox);
-        } else if (playerX.turn == true) {
-            // loop over the boxes and find which one is hovered over, display the symbol
-            for (var i = 0; i < boxes.length; i++) {
-                var hoveredBox = boxes[i];
-            }
-            xHover(hoveredBox);
+        // if X is true if X hovers show the symbol in the box
+        if (playerX.turn == true) {
+            xHover(xHoveredBox);
+        } else if (playerX.turn == false) {
+            oHover(oHoveredBox);
         }
     }, false);
 }();
