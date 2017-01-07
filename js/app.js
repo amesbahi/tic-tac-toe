@@ -15,7 +15,7 @@ var ticTacToeModule = +function() {
         board.style.display = 'none';
     };
 
-    // When the start button is clicked, display the in progress board and hide the start screen and original board.
+    // When the start button is clicked, display the in progress board and hide the start screen.
     startButton.addEventListener("click", function(event) {
         screenStartDiv.style.display = 'none';
         board.style.display = 'block';

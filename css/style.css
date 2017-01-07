@@ -106,9 +106,9 @@ h1 {
   }
   #player1.active svg g, #player2.active svg g {
     fill: #fff; }
-  #player1.active {
-    background: #FFA000; }
   #player2.active {
+    background: #FFA000; }
+  #player1.active {
     background: #3688C3; }
 
 .boxes {
