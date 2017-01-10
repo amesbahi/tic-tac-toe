@@ -64,7 +64,7 @@ var ticTacToeModule = +function () {
     // is highlighted for the current player.
     playerX.turnTrue();
 
-    // On hover functions for each player to display the symbols on the boxes
+    // On hover functions for each player to display the symbols on the boxes (can get rid of this)
     console.log(boxes.children);
     var oHover = function (boxhoveredover) {
         // loop over the boxes and find which one is hovered over, display the symbol
@@ -111,20 +111,31 @@ var ticTacToeModule = +function () {
     //     }
     // }, false);
 
-    // If X or O hovers over a box, display the symbol for that box
-    for (var i = 0; i < boxes.length; i++) {
-        var box = boxes[i];
-        console.log(box);
-        box.addEventListener('mouseover', function (event) {
-            console.log(event.target);
-            // if X is true if X hovers show the symbol in the box
-            if (playerX.turn == true) {
-                console.log("testing x hover");
-                xHover(event.target);
-            } else if (playerX.turn == false) {
-                console.log("testing o hover");
-                oHover(event.target);
-            }
-        }, false);
+    // If X or O hovers over a box, display the symbol for that box (can probably get rid of this after using CSS instead)
+    // for (var i = 0; i < boxes.length; i++) {
+    //     var box = boxes[i];
+    //     console.log(box);
+    //     box.addEventListener('mouseover', function (event) {
+    //         console.log(event.target);
+    //         // if X is true if X hovers show the symbol in the box
+    //         if (playerX.turn == true) {
+    //             console.log("testing x hover");
+    //             xHover(event.target);
+    //         } else if (playerX.turn == false) {
+    //             console.log("testing o hover");
+    //             oHover(event.target);
+    //         }
+    //     }, false);
+    // }
+
+    // loop over the boxes; when user is hovering over one, add the CSS class to that box
+    if (playerX.turn == true) {
+        for (var i = 0; i < boxes.length; i++) {
+            var box = boxes[i];
+            console.log(box);
+            box.addEventListener('mouseover', function (event) { 
+                box.className = "box xSVG";
+            }, false);
+        }
     }
-} ();
+}();

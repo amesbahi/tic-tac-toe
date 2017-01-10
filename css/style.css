@@ -138,4 +138,12 @@ h1 {
       background-color: #3688C3;
       background-image: url(../img/x.svg); }
 
+/* When hovering over a box the below classes displays their symbols via JS */
 
+.xSVG:hover {
+  background-image: "url(../img/x.svg)";
+}
+
+.oSVG:hover {
+  background-image: "url(../img/o.svg)";
+}
