@@ -1,4 +1,4 @@
-var ticTacToeModule = +function() {
+var ticTacToeModule = +function () {
     'use strict';
     // Variables
 
@@ -8,16 +8,16 @@ var ticTacToeModule = +function() {
     var screenStartDiv = document.getElementById('start');
     var playerListItem1 = document.getElementById("player1");
     var playerListItem2 = document.getElementById("player2");
-    var boxes = document.getElementsByClassName("boxes")[0];
+    var boxes = document.getElementsByClassName("box");
     console.log(boxes);
 
     // When the page loads, the startup screen should appear.
-    window.onload = function() {
+    window.onload = function () {
         board.style.display = 'none';
     };
 
     // When the start button is clicked, display the in progress board and hide the start screen.
-    startButton.addEventListener("click", function(event) {
+    startButton.addEventListener("click", function (event) {
         screenStartDiv.style.display = 'none';
         board.style.display = 'block';
         playerListItem1.className = "players active";
@@ -31,11 +31,11 @@ var ticTacToeModule = +function() {
         this.listitem = document.getElementById(listitem);
     }
 
-    PlayerObject.prototype.turnTrue = function() {
+    PlayerObject.prototype.turnTrue = function () {
         this.turn = true;
     }
 
-    PlayerObject.prototype.turnFalse = function() {
+    PlayerObject.prototype.turnFalse = function () {
         this.turn = false;
     }
 
@@ -65,20 +65,25 @@ var ticTacToeModule = +function() {
     playerX.turnTrue();
 
     // On hover functions for each player to display the symbols on the boxes
-    var oHover = function(boxhoveredover) {
+    console.log(boxes.children);
+    var oHover = function (boxhoveredover) {
         // loop over the boxes and find which one is hovered over, display the symbol
         for (var i = 0; i < boxes.length; i++) {
-                var oHoveredBox = boxes[i];
-            }
-        oHoveredBox.style.backgroundImage = "url(../img/o.svg)";
+            var box = boxes[i];
+            console.log(box);
+            box.style.backgroundImage = "";
+        }
+        boxhoveredover.style.backgroundImage = "url(../img/o.svg)";
     }
 
-    var xHover = function(boxhoveredover) {
+    var xHover = function (boxhoveredover) {
         // loop over the boxes and find which one is hovered over, display the symbol
         for (var i = 0; i < boxes.length; i++) {
-                var xHoveredBox = boxes[i];
-            }
-        xHoveredBox.style.backgroundImage = "url(../img/x.svg)";
+            var box = boxes[i];
+            console.log(box);
+            box.style.backgroundImage = "";
+        }
+        boxhoveredover.style.backgroundImage = "url(../img/x.svg)";
     }
 
     if (playerX.turn == true) {
@@ -93,13 +98,33 @@ var ticTacToeModule = +function() {
         playerListItem2.className = "players active";
     }
 
+    // // If X or O hovers over a box, display the symbol for that box
+    // board.addEventListener('mouseover', function(event) {
+    //     console.log(event.target);
+    //     // if X is true if X hovers show the symbol in the box
+    //     if (playerX.turn == true) {
+    //         console.log("testing x hover");
+    //         xHover(event.target);
+    //     } else if (playerX.turn == false) {
+    //         console.log("testing o hover");
+    //         oHover(event.target);
+    //     }
+    // }, false);
+
     // If X or O hovers over a box, display the symbol for that box
-    boxes.addEventListener('mouseover', function(event) {
-        // if X is true if X hovers show the symbol in the box
-        if (playerX.turn == true) {
-            xHover(xHoveredBox);
-        } else if (playerX.turn == false) {
-            oHover(oHoveredBox);
-        }
-    }, false);
-}();
+    for (var i = 0; i < boxes.length; i++) {
+        var box = boxes[i];
+        console.log(box);
+        box.addEventListener('mouseover', function (event) {
+            console.log(event.target);
+            // if X is true if X hovers show the symbol in the box
+            if (playerX.turn == true) {
+                console.log("testing x hover");
+                xHover(event.target);
+            } else if (playerX.turn == false) {
+                console.log("testing o hover");
+                oHover(event.target);
+            }
+        }, false);
+    }
+} ();
