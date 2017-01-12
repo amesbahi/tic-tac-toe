@@ -27,7 +27,6 @@ var ticTacToeModule = +function () {
     function PlayerObject(name, listitem) {
         this.name = name;
         this.turn = false;
-        this.active = false;
         this.listitem = document.getElementById(listitem);
     }
 
@@ -63,32 +62,29 @@ var ticTacToeModule = +function () {
     // The current player is indicated at the top of the page -- the box with the symbol O or X 
     // is highlighted for the current player.
     playerX.turnTrue();
+    console.log(playerX.turn);
 
-    if (playerX.turn == true) {
-        playerO.turn = false;
-        // Highlight the box with O and make O active
-        playerX.active = true;
-        playerListItem1.classList.add('active');
-        console.log(playerListItem1);
-    } else if (playerX.turn == false) {
-        playerO.turn = true;
-        // Highlight the box with O and make O active
-        playerX.active = false;
-        playerListItem2.classList.add('active');
-    }
+    // if (playerX.turn == true) {
+    //     playerO.turn = false;
+    //     // Highlight the box with X and make X active
+    //     playerListItem1.classList.add('active');
+    //     console.log(playerListItem1);
+    // } else if (playerX.turn == false) {
+    //     playerO.turn = true;
+    //     // Highlight the box with O and make O active
+    //     playerListItem2.classList.add('active');
+    // }
 
-    // loop over the boxes; when user is hovering over one, add the CSS class to that box
-    // when the user clicks a box, add class to selected box and switch active player and hover state
+    // Loop over the boxes; when user is hovering over one, add the CSS class to that box
+    // When the user clicks a box, add class to selected box and switch active player and hover state
         for (var i = 0; i < boxes.length; i++) {
             var box = boxes[i];
             console.log(box);
             box.addEventListener('mouseover', function (event) {
                 if (playerX.turn && playerListItem1.className == 'players active') {
                     this.classList.add('xSVG');
-                    this.classList.remove('oSVG');
                 }
                 if (playerO.turn && playerListItem2.className == 'players active') {
-                    this.classList.remove('xSVG');
                     this.classList.add('oSVG');
                 }
             }, false);
@@ -101,25 +97,27 @@ var ticTacToeModule = +function () {
             }, false);
 
             box.addEventListener('click', function(event) {
-                if (playerX.turn) {
-                    if (this.className != 'box-filled-2') {
+                if (playerX.turn && playerListItem1.className == 'players active') {
+                    if (this.className != 'box box-filled-2') {
                         // add the symbol by adding the CSS class
                         this.classList.add('box-filled-1');
                         // switch active players
                         playerListItem1.classList.remove('active');
                         playerListItem2.classList.add('active');
+                        
                         console.log(playerO.turn);
                         console.log(playerX.turn);
                         console.log(playerListItem2.classList);
                     }
                 }
-                if (playerO.turn) {
-                    if (this.className != 'box-filled-1') {
+                if (playerO.turn && playerListItem2.className == 'players active') {
+                    if (this.className != 'box box-filled-1') {
                         // add the symbol by adding the CSS class
                         this.classList.add('box-filled-2');
                         // switch active players
                         playerListItem2.classList.remove('active');
                         playerListItem1.classList.add('active');
+
                         console.log(playerX.turn);
                         console.log(playerO.turn);
                         console.log(playerListItem1.classList);
