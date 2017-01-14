@@ -97,8 +97,8 @@ var ticTacToeModule = +function () {
         }, false);
 
         box.addEventListener('mouseout', function (event) {
-            if (this.className != 'box-filled-2' && this.className != 'box-filled-1' && this.className != 
-            'box box-filled-1 box-filled-2') {
+            if ((this.className != 'box-filled-2' || this.className != 'box-filled-1') || this.className !=
+                'box box-filled-1 box-filled-2') {
                 this.classList.remove('xSVG');
                 this.classList.remove('oSVG');
             }
@@ -161,14 +161,21 @@ var ticTacToeModule = +function () {
     for (var i = 0; i < winningCombos.length; i++) {
         var winningCombo = winningCombos[i];
         console.log(winningCombo);
-        if (playerXCheckedBoxes === winningCombo) {
-            // player X wins
-            board.style.display = 'none';
-            winScreenDiv.style.display = 'block';
-        } else if (playerOCheckedBoxes === winningCombo) {
-            // player O wins
-            board.style.display = 'none';
-            winScreenDiv.style.display = 'block';
+        var counter = 0;
+        // loop through the players checkedboxes array and see if the index matches one of the indexes for
+        // a winning combo. If it does, increment the counter by 1. Then if the length of the counter is 
+        // equal to the length of the winning combo, the player wins and game ends
+        for (var j = 0; j < (playerXCheckedBoxes + playerOCheckedBoxes).length; j++) {
+            if (playerXCheckedBoxes && winningCombo.includes((playerXCheckedBoxes + playerOCheckedBoxes).index)) {
+                // player X wins
+                //board.style.display = 'none';
+                //winScreenDiv.style.display = 'block';
+                counter++;
+            } if (counter === winningCombo.length) {
+                // player O wins
+                board.style.display = 'none';
+                winScreenDiv.style.display = 'block';
+            }
         }
     }
 } ();
