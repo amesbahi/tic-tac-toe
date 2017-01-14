@@ -171,7 +171,7 @@ var ticTacToeModule = +function () {
                 //board.style.display = 'none';
                 //winScreenDiv.style.display = 'block';
                 counter++;
-            } if (counter === winningCombo.length) {
+            } if (counter.length === winningCombo.length) {
                 // player O wins
                 board.style.display = 'none';
                 winScreenDiv.style.display = 'block';
