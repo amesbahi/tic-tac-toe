@@ -82,92 +82,92 @@ var ticTacToeModule = +function () {
     // Loop over the boxes; when user is hovering over one, add the CSS class to that box
     // When the user clicks a box, add class to selected box and switch active player and hover state
 
-        for (var i = 0; i < boxes.length; i++) {
-            var box = boxes[i];
-            console.log(box);
-            box.addEventListener('mouseover', function (event) {
-                if (playerX.turn && playerListItem1.className == 'players active' && (this.className != 'box box-filled-2' 
-                && this.className != 'box box-filled-1')) {
-                    this.classList.add('xSVG');
-                }
-                if (playerO.turn && playerListItem2.className == 'players active' && (this.className != 'box box-filled-2' 
-                && this.className != 'box box-filled-1')) {
-                    this.classList.add('oSVG');
-                }
-            }, false);
+    for (var i = 0; i < boxes.length; i++) {
+        var box = boxes[i];
+        console.log(box);
+        box.addEventListener('mouseover', function (event) {
+            if (playerX.turn && playerListItem1.className == 'players active' && this.className != 'box box-filled-2'
+                && this.className != 'box box-filled-1' && this.className != 'box box-filled-1 box-filled-2') {
+                this.classList.add('xSVG');
+            }
+            if (playerO.turn && playerListItem2.className == 'players active' && this.className != 'box box-filled-2'
+                && this.className != 'box box-filled-1' && this.className != 'box box-filled-1 box-filled-2') {
+                this.classList.add('oSVG');
+            }
+        }, false);
 
-            box.addEventListener('mouseout', function (event) {
-                if (this.className != 'box-filled-2' && this.className != 'box-filled-1') {
-                    this.classList.remove('xSVG');
-                    this.classList.remove('oSVG');
-                }
-            }, false);
+        box.addEventListener('mouseout', function (event) {
+            if (this.className != 'box-filled-2' || this.className != 'box-filled-1') {
+                this.classList.remove('xSVG');
+                this.classList.remove('oSVG');
+            }
+        }, false);
 
-            box.addEventListener('click', function(event) {
-                if (playerX.turn) {
-                    if (this.className != 'box box-filled-2' || this.className != 'box box-filled-1') {
-                        // add the symbol by adding the CSS class
-                        this.classList.add('box-filled-1');
-                        // switch active players
-                        playerListItem1.classList.remove('active');
-                        playerListItem2.classList.add('active');
-                        playerX.turnFalse();
-                        playerO.turnTrue();
-                        playerXCheckedBoxes.push(boxes.indexOf(this));
-                        console.log(playerXCheckedBoxes);
-                        
-                        console.log(playerO.turn);
-                        console.log(playerX.turn);
-                        console.log(playerListItem2.classList);
-                    }
-                } else if (playerO.turn) {
-                    if (this.className != 'box box-filled-1' || this.className != 'box box-filled-2') {
-                        // add the symbol by adding the CSS class
-                        this.classList.add('box-filled-2');
-                        // switch active players
-                        playerListItem2.classList.remove('active');
-                        playerListItem1.classList.add('active');
-                        playerO.turnFalse();
-                        playerX.turnTrue();
-                        playerOCheckedBoxes.push(boxes.indexOf(this));
-                        console.log(playerOCheckedBoxes);
+        box.addEventListener('click', function (event) {
+            if (playerX.turn) {
+                if (this.className != 'box box-filled-2' || this.className != 'box box-filled-1') {
+                    // add the symbol by adding the CSS class
+                    this.classList.add('box-filled-1');
+                    // switch active players
+                    playerListItem1.classList.remove('active');
+                    playerListItem2.classList.add('active');
+                    playerX.turnFalse();
+                    playerO.turnTrue();
+                    playerXCheckedBoxes.push(boxes.indexOf(this));
+                    console.log(playerXCheckedBoxes);
 
-                        console.log(playerX.turn);
-                        console.log(playerO.turn);
-                        console.log(playerListItem1.classList);
-                    }
+                    console.log(playerO.turn);
+                    console.log(playerX.turn);
+                    console.log(playerListItem2.classList);
                 }
-            }, false);
+            } else if (playerO.turn) {
+                if (this.className != 'box box-filled-1' || this.className != 'box box-filled-2') {
+                    // add the symbol by adding the CSS class
+                    this.classList.add('box-filled-2');
+                    // switch active players
+                    playerListItem2.classList.remove('active');
+                    playerListItem1.classList.add('active');
+                    playerO.turnFalse();
+                    playerX.turnTrue();
+                    playerOCheckedBoxes.push(boxes.indexOf(this));
+                    console.log(playerOCheckedBoxes);
+
+                    console.log(playerX.turn);
+                    console.log(playerO.turn);
+                    console.log(playerListItem1.classList);
+                }
+            }
+        }, false);
+    }
+
+    // The game ends when one player has three of their symbols in a row either horizontally, vertically 
+    // or diagonally. If all of the squares are filled and no players have three in a row, the game is a tie
+
+    // Arrays to hold the indices of the selected boxes
+    var playerXCheckedBoxes = [];
+    var playerOCheckedBoxes = [];
+
+    var winningCombos = [
+        // Horizontally
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        // Vertically
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        // Diagonally
+        [0, 4, 8], [2, 4, 6]
+    ];
+
+    // Loop through the winning combinations and select one to match against player's selected box array
+    for (var i = 0; i < winningCombos.length; i++) {
+        var winningCombo = winningCombos[i];
+        console.log(winningCombo);
+        if (playerXCheckedBoxes === winningCombo) {
+            // player X wins
+            board.style.display = 'none';
+            winScreenDiv.style.display = 'block';
+        } else if (playerOCheckedBoxes === winningCombo) {
+            // player O wins
+            board.style.display = 'none';
+            winScreenDiv.style.display = 'block';
         }
-
-         // The game ends when one player has three of their symbols in a row either horizontally, vertically 
-         // or diagonally. If all of the squares are filled and no players have three in a row, the game is a tie
-
-         // Arrays to hold the indices of the selected boxes
-         var playerXCheckedBoxes = [];
-         var playerOCheckedBoxes = [];
-
-         var winningCombos = [
-             // Horizontally
-             [0,1,2], [3,4,5], [6,7,8],
-             // Vertically
-             [0,3,6], [1,4,7], [2,5,8],
-             // Diagonally
-             [0,4,8], [2,4,6]
-         ];
-
-         // Loop through the winning combinations and select one to match against player's selected box array
-         for (var i = 0; i < winningCombos.length; i++) {
-             var winningCombo = winningCombos[i];
-             console.log(winningCombo);
-             if (playerXCheckedBoxes === winningCombo) {
-                 // player X wins
-                 board.style.display = 'none';
-                 winScreenDiv.style.display = 'block';
-             } else if (playerOCheckedBoxes === winningCombo) {
-                 // player O wins
-                 board.style.display = 'none';
-                 winScreenDiv.style.display = 'block';
-             }
-         }
-}();
+    }
+} ();
