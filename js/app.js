@@ -97,7 +97,8 @@ var ticTacToeModule = +function () {
         }, false);
 
         box.addEventListener('mouseout', function (event) {
-            if (this.className != 'box-filled-2' || this.className != 'box-filled-1') {
+            if (this.className != 'box-filled-2' && this.className != 'box-filled-1' && this.className != 
+            'box box-filled-1 box-filled-2') {
                 this.classList.remove('xSVG');
                 this.classList.remove('oSVG');
             }
