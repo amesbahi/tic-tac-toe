@@ -22,7 +22,7 @@ var ticTacToeModule = +function () {
     // When the start button is clicked, display the in progress board and hide the start screen.
     startButton.addEventListener("click", function (event) {
         screenStartDiv.style.display = 'none';
-        //winScreenDiv.style.display = 'none';
+        winScreenDiv.style.display = 'none';
         board.style.display = 'block';
         playerListItem1.classList.add('active');
     });
@@ -86,12 +86,12 @@ var ticTacToeModule = +function () {
             var box = boxes[i];
             console.log(box);
             box.addEventListener('mouseover', function (event) {
-                if (playerX.turn && playerListItem1.className == 'players active' && this.className != 'box box-filled-2' 
-                && this.className != 'box box-filled-1') {
+                if (playerX.turn && playerListItem1.className == 'players active' && (this.className != 'box box-filled-2' 
+                && this.className != 'box box-filled-1')) {
                     this.classList.add('xSVG');
                 }
-                if (playerO.turn && playerListItem2.className == 'players active' && this.className != 'box box-filled-2' 
-                && this.className != 'box box-filled-1') {
+                if (playerO.turn && playerListItem2.className == 'players active' && (this.className != 'box box-filled-2' 
+                && this.className != 'box box-filled-1')) {
                     this.classList.add('oSVG');
                 }
             }, false);
@@ -105,7 +105,7 @@ var ticTacToeModule = +function () {
 
             box.addEventListener('click', function(event) {
                 if (playerX.turn) {
-                    if (this.className != 'box box-filled-2' && this.className != 'box box-filled-1') {
+                    if (this.className != 'box box-filled-2' || this.className != 'box box-filled-1') {
                         // add the symbol by adding the CSS class
                         this.classList.add('box-filled-1');
                         // switch active players
@@ -121,7 +121,7 @@ var ticTacToeModule = +function () {
                         console.log(playerListItem2.classList);
                     }
                 } else if (playerO.turn) {
-                    if (this.className != 'box box-filled-1' && this.className != 'box box-filled-2') {
+                    if (this.className != 'box box-filled-1' || this.className != 'box box-filled-2') {
                         // add the symbol by adding the CSS class
                         this.classList.add('box-filled-2');
                         // switch active players
