@@ -159,19 +159,21 @@ var ticTacToeModule = +function () {
 
     // Loop through the winning combinations and select one to match against player's selected box array
     for (var i = 0; i < winningCombos.length; i++) {
-        var winningCombo = winningCombos[i];
-        console.log(winningCombo);
+        //var winningCombo = winningCombos[i];
+        //console.log(winningCombo);
         var counter = 0;
         // loop through the players checkedboxes array and see if the index matches one of the indexes for
         // a winning combo. If it does, increment the counter by 1. Then if the length of the counter is 
         // equal to the length of the winning combo, the player wins and game ends
-        for (var j = 0; j < (playerXCheckedBoxes + playerOCheckedBoxes).length; j++) {
-            if (playerXCheckedBoxes && winningCombo.includes((playerXCheckedBoxes + playerOCheckedBoxes).index)) {
+        for (var j = 0; j < playerXCheckedBoxes.length || j < playerOCheckedBoxes.length; j++) {
+            if (/*playerXCheckedBoxes && */winningCombos[i].includes(playerXCheckedBoxes.index) || 
+            winningCombos[i].includes(playerOCheckedBoxes.index)) {
                 // player X wins
                 //board.style.display = 'none';
                 //winScreenDiv.style.display = 'block';
                 counter++;
-            } if (counter.length === winningCombo.length) {
+                console.log(counter);
+            } if (counter.length === winningCombos[i].length) {
                 // player O wins
                 board.style.display = 'none';
                 winScreenDiv.style.display = 'block';
