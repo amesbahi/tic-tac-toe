@@ -180,7 +180,7 @@ var ticTacToeModule = +function () {
 
         for (var n = 0; n < playerOCheckedBoxes.length; n++) {
             var player2SelectedBox = playerOCheckedBoxes[n];
-            if (winningCombo.includes(playerXCheckedBoxes.index) || winningCombo.includes(player2SelectedBox.index)) {
+            if (winningCombo.includes(player2SelectedBox.index)) {
                 counter++;
                 console.log(counter);
             } if (counter.length === winningCombo.length) {
