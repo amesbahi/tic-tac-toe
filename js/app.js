@@ -178,8 +178,8 @@ var ticTacToeModule = +function () {
             }
         }
 
-        for (var j = 0; j < playerOCheckedBoxes.length; j++) {
-            var player2SelectedBox = playerOCheckedBoxes[j];
+        for (var n = 0; n < playerOCheckedBoxes.length; n++) {
+            var player2SelectedBox = playerOCheckedBoxes[n];
             if (winningCombo.includes(playerXCheckedBoxes.index) || winningCombo.includes(player2SelectedBox.index)) {
                 counter++;
                 console.log(counter);
