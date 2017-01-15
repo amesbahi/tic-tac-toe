@@ -110,6 +110,8 @@ var ticTacToeModule = +function () {
                 if (this.className != 'box box-filled-2' && this.className != 'box box-filled-1') {
                     // add the symbol by adding the CSS class
                     this.classList.add('box-filled-1');
+                    // remove SVG hover so user cannot click same box again without mousing out
+                    this.classList.remove('xSVG');
                     // switch active players
                     playerListItem1.classList.remove('active');
                     playerListItem2.classList.add('active');
@@ -126,6 +128,8 @@ var ticTacToeModule = +function () {
                 if (this.className != 'box box-filled-1' && this.className != 'box box-filled-2') {
                     // add the symbol by adding the CSS class
                     this.classList.add('box-filled-2');
+                    // remove SVG hover so user cannot click same box again without mousing out
+                    this.classList.remove('oSVG');
                     // switch active players
                     playerListItem2.classList.remove('active');
                     playerListItem1.classList.add('active');
@@ -172,7 +176,7 @@ var ticTacToeModule = +function () {
             if (winningCombo.includes(player1SelectedBox.index)) {
                 counter++;
                 console.log(counter);
-            } if (player1SelectedBox.index == winningCombo) {
+            } if (player1SelectedBox == winningCombo) {
                 // player wins
                 board.style.display = 'none';
                 winScreenDiv.style.display = 'block';
@@ -185,7 +189,7 @@ var ticTacToeModule = +function () {
             if (winningCombo.includes(player2SelectedBox.index)) {
                 counter++;
                 console.log(counter);
-            } if (player2SelectedBox.index == winningCombo) {
+            } if (player2SelectedBox == winningCombo) {
                 // player wins
                 board.style.display = 'none';
                 winScreenDiv.style.display = 'block';
