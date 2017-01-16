@@ -79,6 +79,60 @@ var ticTacToeModule = +function () {
     //     playerListItem2.classList.add('active');
     // }
 
+    // The game ends when one player has three of their symbols in a row either horizontally, vertically 
+    // or diagonally. If all of the squares are filled and no players have three in a row, the game is a tie
+
+    // Arrays to hold the indices of the selected boxes
+    var playerXCheckedBoxes = [];
+    var playerOCheckedBoxes = [];
+
+    var winningCombos = [
+        // Horizontally
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        // Vertically
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        // Diagonally
+        [0, 4, 8], [2, 4, 6]
+    ];
+
+    var hasPlayerWon = function () {
+        // Loop through the winning combinations and select one to match against player's selected box array
+        for (var i = 0; i < winningCombos.length; i++) {
+            var winningCombo = winningCombos[i];
+            console.log(winningCombo);
+            //var counter = 0;
+            // loop through the players checkedboxes array and see if the index matches one of the indexes for
+            // a winning combo. If it does, increment the counter by 1. Then if the length of the counter is 
+            // equal to the length of the winning combo, the player wins and game ends
+            for (var j = 0; j <= playerXCheckedBoxes.length; j++) {
+                console.log(playerXCheckedBoxes.length);
+                var player1SelectedBox = playerXCheckedBoxes[j];
+                console.log(player1SelectedBox);
+                if (winningCombo.includes(player1SelectedBox.index)) {
+                    counter++;
+                    console.log(counter);
+                } if (player1SelectedBox == winningCombo) {
+                    // player wins
+                    board.style.display = 'none';
+                    winScreenDiv.style.display = 'block';
+                }
+            }
+
+            for (var n = 0; n <= playerOCheckedBoxes.length; n++) {
+                var player2SelectedBox = playerOCheckedBoxes[n];
+                console.log(player2SelectedBox);
+                if (winningCombo.includes(player2SelectedBox.index)) {
+                    counter++;
+                    console.log(counter);
+                } if (player2SelectedBox == winningCombo) {
+                    // player wins
+                    board.style.display = 'none';
+                    winScreenDiv.style.display = 'block';
+                }
+            }
+        }
+    };
+
     // Loop over the boxes; when user is hovering over one, add the CSS class to that box
     // When the user clicks a box, add class to selected box and switch active player and hover state
 
@@ -118,6 +172,7 @@ var ticTacToeModule = +function () {
                     playerX.turnFalse();
                     playerO.turnTrue();
                     playerXCheckedBoxes.push(boxes.indexOf(this));
+                    hasPlayerWon();
                     console.log(playerXCheckedBoxes);
 
                     console.log(playerO.turn);
@@ -136,6 +191,7 @@ var ticTacToeModule = +function () {
                     playerO.turnFalse();
                     playerX.turnTrue();
                     playerOCheckedBoxes.push(boxes.indexOf(this));
+                    hasPlayerWon();
                     console.log(playerOCheckedBoxes);
 
                     console.log(playerX.turn);
@@ -144,56 +200,5 @@ var ticTacToeModule = +function () {
                 }
             }
         }, false);
-    }
-
-    // The game ends when one player has three of their symbols in a row either horizontally, vertically 
-    // or diagonally. If all of the squares are filled and no players have three in a row, the game is a tie
-
-    // Arrays to hold the indices of the selected boxes
-    var playerXCheckedBoxes = [];
-    var playerOCheckedBoxes = [];
-
-    var winningCombos = [
-        // Horizontally
-        [0, 1, 2], [3, 4, 5], [6, 7, 8],
-        // Vertically
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],
-        // Diagonally
-        [0, 4, 8], [2, 4, 6]
-    ];
-
-    // Loop through the winning combinations and select one to match against player's selected box array
-    for (var i = 0; i < winningCombos.length; i++) {
-        var winningCombo = winningCombos[i];
-        console.log(winningCombo);
-        //var counter = 0;
-        // loop through the players checkedboxes array and see if the index matches one of the indexes for
-        // a winning combo. If it does, increment the counter by 1. Then if the length of the counter is 
-        // equal to the length of the winning combo, the player wins and game ends
-        for (var j = 0; j < playerXCheckedBoxes.length; j++) {
-            var player1SelectedBox = playerXCheckedBoxes[j];
-            console.log(player1SelectedBox);
-            if (winningCombo.includes(player1SelectedBox.index)) {
-                counter++;
-                console.log(counter);
-            } if (player1SelectedBox == winningCombo) {
-                // player wins
-                board.style.display = 'none';
-                winScreenDiv.style.display = 'block';
-            }
-        }
-
-        for (var n = 0; n < playerOCheckedBoxes.length; n++) {
-            var player2SelectedBox = playerOCheckedBoxes[n];
-            console.log(player2SelectedBox);
-            if (winningCombo.includes(player2SelectedBox.index)) {
-                counter++;
-                console.log(counter);
-            } if (player2SelectedBox == winningCombo) {
-                // player wins
-                board.style.display = 'none';
-                winScreenDiv.style.display = 'block';
-            }
-        }
     }
 } ();
