@@ -12,8 +12,14 @@ var ticTacToeModule = +function () {
     var playerListItem1 = document.getElementById("player1");
     var playerListItem2 = document.getElementById("player2");
     var boxes = Array.prototype.slice.call(document.getElementsByClassName("box"));
+    var newGameWin1 = document.getElementsByClassName('button-win-1')[0];
+    var newGameWin2 = document.getElementsByClassName('button-win-2')[0];
+    var newGameDraw = document.getElementsByClassName('button-draw')[0];
     //var boxesNodeList = Array.prototype.slice.call(document.getElementsByClassName('box'));
     console.log(boxes);
+    console.log(newGameWin1);
+    console.log(newGameWin2);
+    console.log(newGameDraw);
 
     // When the page loads, the startup screen should appear.
     window.onload = function () {
@@ -101,6 +107,22 @@ var ticTacToeModule = +function () {
         [0, 4, 8], [2, 4, 6]
     ];
 
+    var newGame = function () {
+        boxes.classList && boxes.classList.remove('box-filled-1');
+        console.log(boxes);
+        boxes.classList && boxes.classList.remove('box-filled-2');
+        playerListItem1.classList.add('active');
+        playerListItem2.classList.remove('active');
+        playerX.turnTrue();
+        playerO.turnFalse();
+        board.style.display = 'block';
+        screenWin1Div.style.display = 'none';
+        screenWin2Div.style.display = 'none';
+        drawScreen.style.display = 'none';
+        playerXCheckedBoxes = [];
+        playerOCheckedBoxes = [];
+    };
+
     var hasPlayerWon = function () {
         // Loop through the winning combinations and select one to match against player's selected box array
         for (var i = 0; i < winningCombos.length; i++) {
@@ -122,7 +144,8 @@ var ticTacToeModule = +function () {
                     // player wins
                     board.style.display = 'none';
                     screenWin1Div.style.display = 'block';
-                } else if (playerXCheckedBoxes.length >= 5) {
+                } else if (playerXCheckedBoxes.length >= 5) { // come back and fix this condition - displays draw when
+                    // X get 2,5,8 winning combo when all boxes full
                     // display draw screen
                     drawScreen.style.display = 'block';
                 }
@@ -138,13 +161,27 @@ var ticTacToeModule = +function () {
                     // player wins
                     board.style.display = 'none';
                     screenWin2Div.style.display = 'block';
-                } else if (playerOCheckedBoxes.length >= 5) {
+                } else if (playerOCheckedBoxes.length >= 5) { // come back and fix this condition
                     // display draw screen
                     drawScreen.style.display = 'block';
                 }
             }
         }
     };
+
+    // When user clicks on new game button, new game begins
+    newGameWin1.addEventListener('click', function (event) { // varible is undefined maybe because button only displays
+        // when user wins game?
+        newGame();
+    });
+
+    newGameWin2.addEventListener('click', function (event) {
+        newGame();
+    });
+
+    newGameDraw.addEventListener('click', function (event) {
+        newGame();
+    });
 
     // Loop over the boxes; when user is hovering over one, add the CSS class to that box
     // When the user clicks a box, add class to selected box and switch active player and hover state
