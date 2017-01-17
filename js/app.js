@@ -123,13 +123,17 @@ var ticTacToeModule = +function () {
         playerOCheckedBoxes = [];
     };
 
-    var hasPlayerWon = function () {
+    var isGameOver = function () {
+        var hasPlayerXWon = false;
+        var hasPlayerOWon = false;
         // Loop through the winning combinations and select one to match against player's selected box array
         for (var i = 0; i < winningCombos.length; i++) {
             var winningCombo = winningCombos[i];
             console.log(winningCombo);
             var playerXCounter = 0;
+            var playerXCounterNonWinning = 0;
             var playerOCounter = 0;
+            var playerOCounterNonWinning = 0;
             // loop through the players checkedboxes array and see if the index matches one of the indexes for
             // a winning combo. If it does, increment the counter by 1. Then if the length of the counter is 
             // equal to the length of the winning combo, the player wins and game ends
@@ -140,13 +144,16 @@ var ticTacToeModule = +function () {
                 if (winningCombo.includes(player1SelectedBox)) {
                     playerXCounter++;
                     console.log(playerXCounter);
-                } if (playerXCounter == 3) {
+                } else {
+                    // increment counter for non winning combos
+                    playerXCounterNonWinning++;
+                }
+                if (playerXCounter == 3) {
                     // player wins
+                    hasPlayerXWon = true;
                     board.style.display = 'none';
                     screenWin1Div.style.display = 'block';
-                } else if (playerXCheckedBoxes.length >= 5) { // come back and fix this condition - displays draw when
-                    // X get 2,5,8 winning combo when all boxes full
-                    // display draw screen
+                } else if (playerXCheckedBoxes.length >= 5 && hasPlayerXWon == false) {
                     drawScreen.style.display = 'block';
                 }
             }
@@ -157,15 +164,22 @@ var ticTacToeModule = +function () {
                 if (winningCombo.includes(player2SelectedBox)) {
                     playerOCounter++;
                     console.log(playerOCounter);
-                } if (playerOCounter == 3) {
+                } else {
+                    playerOCounterNonWinning++;
+                }
+                if (playerOCounter == 3) {
                     // player wins
+                    hasPlayerOWon = true;
                     board.style.display = 'none';
                     screenWin2Div.style.display = 'block';
-                } else if (playerOCheckedBoxes.length >= 5) { // come back and fix this condition
-                    // display draw screen
+                } else if (playerOCheckedBoxes.length >= 5 && hasPlayerOWon == false) {
                     drawScreen.style.display = 'block';
                 }
             }
+        }
+        if ((hasPlayerXWon == false || hasPlayerOWon == false) && (playerXCounterNonWinning == winningCombo || playerOCounterNonWinning == winningCombo)) {
+            // display draw screen
+            drawScreen.style.display = 'block';
         }
     };
 
@@ -222,7 +236,7 @@ var ticTacToeModule = +function () {
                     playerX.turnFalse();
                     playerO.turnTrue();
                     playerXCheckedBoxes.push(boxes.indexOf(this));
-                    hasPlayerWon();
+                    isGameOver();
                     console.log(playerXCheckedBoxes);
 
                     console.log(playerO.turn);
@@ -241,7 +255,7 @@ var ticTacToeModule = +function () {
                     playerO.turnFalse();
                     playerX.turnTrue();
                     playerOCheckedBoxes.push(boxes.indexOf(this));
-                    hasPlayerWon();
+                    isGameOver();
                     console.log(playerOCheckedBoxes);
 
                     console.log(playerX.turn);
