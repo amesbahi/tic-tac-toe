@@ -2,12 +2,13 @@ var ticTacToeModule = +function () {
     'use strict';
     // Variables
 
-    // Board.
+    // Board
     var board = document.getElementsByClassName('board')[0];
     var startButton = document.getElementById('start-button');
     var screenStartDiv = document.getElementById('start');
     var screenWin1Div = document.getElementsByClassName('screen-win-one')[0];
     var screenWin2Div = document.getElementsByClassName('screen-win-two')[0];
+    var drawScreen = document.getElementsByClassName('screen-win-tie')[0];
     var playerListItem1 = document.getElementById("player1");
     var playerListItem2 = document.getElementById("player2");
     var boxes = Array.prototype.slice.call(document.getElementsByClassName("box"));
@@ -19,6 +20,7 @@ var ticTacToeModule = +function () {
         board.style.display = 'none';
         screenWin1Div.style.display = 'none';
         screenWin2Div.style.display = 'none';
+        drawScreen.style.display = 'none';
     };
 
     // When the start button is clicked, display the in progress board and hide the start screen.
@@ -26,6 +28,7 @@ var ticTacToeModule = +function () {
         screenStartDiv.style.display = 'none';
         screenWin1Div.style.display = 'none';
         screenWin2Div.style.display = 'none';
+        drawScreen.style.display = 'none';
         board.style.display = 'block';
         playerListItem1.classList.add('active');
     });
@@ -119,6 +122,9 @@ var ticTacToeModule = +function () {
                     // player wins
                     board.style.display = 'none';
                     screenWin1Div.style.display = 'block';
+                } else if (playerXCheckedBoxes.length >= 5) {
+                    // display draw screen
+                    drawScreen.style.display = 'block';
                 }
             }
 
@@ -132,6 +138,9 @@ var ticTacToeModule = +function () {
                     // player wins
                     board.style.display = 'none';
                     screenWin2Div.style.display = 'block';
+                } else if (playerOCheckedBoxes.length >= 5) {
+                    // display draw screen
+                    drawScreen.style.display = 'block';
                 }
             }
         }
