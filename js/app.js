@@ -15,11 +15,6 @@ var ticTacToeModule = +function () {
     var newGameWin1 = document.getElementsByClassName('button-win-1')[0];
     var newGameWin2 = document.getElementsByClassName('button-win-2')[0];
     var newGameDraw = document.getElementsByClassName('button-draw')[0];
-    //var boxesNodeList = Array.prototype.slice.call(document.getElementsByClassName('box'));
-    console.log(boxes);
-    console.log(newGameWin1);
-    console.log(newGameWin2);
-    console.log(newGameDraw);
 
     // When the page loads, the startup screen should appear.
     window.onload = function () {
@@ -71,30 +66,14 @@ var ticTacToeModule = +function () {
     // Instantiating player objects "X" and "O".
     var playerX = new Player1("X", "player1");
     var playerO = new Player2("O", "player2");
-    console.log(playerX);
-    console.log(playerO);
 
     // If it's X's turn, set O turn to false; vice versa.
     // The current player is indicated at the top of the page -- the box with the symbol O or X 
     // is highlighted for the current player.
     playerX.turnTrue();
-    console.log(playerX.turn);
 
-    // if (playerX.turn == true) {
-    //     playerO.turn = false;
-    //     // Highlight the box with X and make X active
-    //     playerListItem1.classList.add('active');
-    //     console.log(playerListItem1);
-    // } else if (playerX.turn == false) {
-    //     playerO.turn = true;
-    //     // Highlight the box with O and make O active
-    //     playerListItem2.classList.add('active');
-    // }
-
-    // The game ends when one player has three of their symbols in a row either horizontally, vertically 
-    // or diagonally. If all of the squares are filled and no players have three in a row, the game is a tie
-
-    // Arrays to hold the indices of the selected boxes
+    // The game ends when one player has three of their symbols in a row either horizontally, vertically or diagonally.
+    // Arrays to hold the indices of the selected boxesx
     var playerXCheckedBoxes = [];
     var playerOCheckedBoxes = [];
 
@@ -107,11 +86,9 @@ var ticTacToeModule = +function () {
         [0, 4, 8], [2, 4, 6]
     ];
 
+    // Function to call on the new game button when game ends and user wants to start a new game
     var newGame = function () {
-        // boxes.classList && boxes.classList.remove('box-filled-1');
-        // console.log(boxes);
-        // boxes.classList && boxes.classList.remove('box-filled-2');
-        // Try instead by looping through the boxes collection and removing its classes
+        // Looping through the boxes collection and removing its classes
         for (i = 0; i < boxes.length; i++) {
             var boxFilled = boxes[i];
             if (boxFilled.classList) {
@@ -119,7 +96,6 @@ var ticTacToeModule = +function () {
                 boxFilled.classList.remove("box-filled-2");
             }
         }
-        console.log(boxFilled);
         playerListItem1.classList.add('active');
         playerListItem2.classList.remove('active');
         playerX.turnTrue();
@@ -132,77 +108,60 @@ var ticTacToeModule = +function () {
         playerOCheckedBoxes = [];
     };
 
+    // Function to check if the board is completely filled up so that it can be reset when game is over
     var boardIsFilled = function () {
-        // if (playerXCheckedBoxes.length + playerOCheckedBoxes.length == 9) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
         var isFilled = playerXCheckedBoxes.length + playerOCheckedBoxes.length == 9;
         return isFilled;
+    };
 
-
-        // return (playerXCheckedBoxes.length + playerOCheckedBoxes.length == 9);
-    }
-    console.log(boardIsFilled());
-
+    // Function to check if a player wins; if one does, the game is over. This gets called in the click add event listener
     var isGameOver = function () {
         var hasPlayerWon = false;
         // Loop through the winning combinations and select one to match against player's selected box array
         for (var i = 0; i < winningCombos.length; i++) {
             var winningCombo = winningCombos[i];
-            console.log(winningCombo);
             var playerXCounter = 0;
             var playerOCounter = 0;
-            // loop through the players checkedboxes array and see if the index matches one of the indexes for
+
+            // Loop through the players checkedboxes array and see if the index matches one of the indexes for
             // a winning combo. If it does, increment the counter by 1. Then if the length of the counter is 
             // equal to the length of the winning combo, the player wins and game ends
             for (var j = 0; j < playerXCheckedBoxes.length; j++) {
-                console.log(playerXCheckedBoxes.length);
                 var player1SelectedBox = playerXCheckedBoxes[j];
-                console.log(player1SelectedBox);
                 if (winningCombo.includes(player1SelectedBox)) {
                     playerXCounter++;
-                    console.log(playerXCounter);
                 }
                 if (playerXCounter == 3) {
                     // player wins
                     hasPlayerWon = true;
                     board.style.display = 'none';
                     screenWin1Div.style.display = 'block';
-                } /*else if (playerXCheckedBoxes.length >= 5 && hasPlayerWon == false) {
-                    drawScreen.style.display = 'block';
-            }*/
+                }
             }
 
             for (var n = 0; n < playerOCheckedBoxes.length; n++) {
                 var player2SelectedBox = playerOCheckedBoxes[n];
-                console.log(player2SelectedBox);
                 if (winningCombo.includes(player2SelectedBox)) {
                     playerOCounter++;
-                    console.log(playerOCounter);
                 }
                 if (playerOCounter == 3) {
                     // player wins
                     hasPlayerWon = true;
                     board.style.display = 'none';
                     screenWin2Div.style.display = 'block';
-                } /*else if (playerOCheckedBoxes.length >= 5 && hasPlayerWon == false) {
-                    drawScreen.style.display = 'block';
-            }*/
+                }
             }
         }
+
+        // If all of the squares are filled and no players have three in a row, the game is a tie
         if (boardIsFilled() && !hasPlayerWon) {
             // display draw screen
             drawScreen.style.display = 'block';
         }
-        console.log(boardIsFilled());
-        console.log(hasPlayerWon);
     };
 
     // When user clicks on new game button, new game begins
-    newGameWin1.addEventListener('click', function (event) { // varible is undefined maybe because button only displays
-        // when user wins game?
+    newGameWin1.addEventListener('click', function (event) {
         newGame();
     });
 
@@ -216,10 +175,8 @@ var ticTacToeModule = +function () {
 
     // Loop over the boxes; when user is hovering over one, add the CSS class to that box
     // When the user clicks a box, add class to selected box and switch active player and hover state
-
     for (var i = 0; i < boxes.length; i++) {
         var box = boxes[i];
-        console.log(box);
         box.addEventListener('mouseover', function (event) {
             if (playerX.turn && playerListItem1.className == 'players active' && this.className != 'box box-filled-2'
                 && this.className != 'box box-filled-1' && this.className != 'box box-filled-1 box-filled-2') {
@@ -254,11 +211,6 @@ var ticTacToeModule = +function () {
                     playerO.turnTrue();
                     playerXCheckedBoxes.push(boxes.indexOf(this));
                     isGameOver();
-                    console.log(playerXCheckedBoxes);
-
-                    console.log(playerO.turn);
-                    console.log(playerX.turn);
-                    console.log(playerListItem2.classList);
                 }
             } else if (playerO.turn && playerListItem2.className == 'players active') {
                 if (this.className != 'box box-filled-1' && this.className != 'box box-filled-2') {
@@ -273,11 +225,6 @@ var ticTacToeModule = +function () {
                     playerX.turnTrue();
                     playerOCheckedBoxes.push(boxes.indexOf(this));
                     isGameOver();
-                    console.log(playerOCheckedBoxes);
-
-                    console.log(playerX.turn);
-                    console.log(playerO.turn);
-                    console.log(playerListItem1.classList);
                 }
             }
         }, false);
