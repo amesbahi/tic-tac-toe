@@ -12,7 +12,6 @@ var ticTacToeModule = +function () {
     var playerListItem1 = document.getElementById("player1");
     var playerListItem2 = document.getElementById("player2");
     var boxes = Array.prototype.slice.call(document.getElementsByClassName("box"));
-    console.log(boxes);
     var newGameWin1 = document.getElementsByClassName('button-win-1')[0];
     var newGameWin2 = document.getElementsByClassName('button-win-2')[0];
     var newGameDraw = document.getElementsByClassName('button-draw')[0];
@@ -114,13 +113,13 @@ var ticTacToeModule = +function () {
         // boxes.classList && boxes.classList.remove('box-filled-2');
         // Try instead by looping through the boxes collection and removing its classes
         for (i = 0; i < boxes.length; i++) {
-            var boxFilledClass = boxes[i];
-            if (boxFilledClass.classList) {
-                boxFilledClass.classList.remove("box-filled-1");
-                boxFilledClass.classList.remove("box-filled-2");
+            var boxFilled = boxes[i];
+            if (boxFilled.classList) {
+                boxFilled.classList.remove("box-filled-1");
+                boxFilled.classList.remove("box-filled-2");
             }
         }
-        console.log(boxFilledClass);
+        console.log(boxFilled);
         playerListItem1.classList.add('active');
         playerListItem2.classList.remove('active');
         playerX.turnTrue();
