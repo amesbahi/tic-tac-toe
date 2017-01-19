@@ -1,8 +1,6 @@
 var ticTacToeModule = +function () {
     'use strict';
     // Variables
-
-    // Board
     var board = document.getElementsByClassName('board')[0];
     var startButton = document.getElementById('start-button');
     var screenStartDiv = document.getElementById('start');
@@ -11,12 +9,13 @@ var ticTacToeModule = +function () {
     var drawScreen = document.getElementsByClassName('screen-win-tie')[0];
     var playerListItem1 = document.getElementById("player1");
     var playerListItem2 = document.getElementById("player2");
+    // A box, when selected, will be pushed to a player's checked boxes array
     var boxes = Array.prototype.slice.call(document.getElementsByClassName("box"));
     var newGameWin1 = document.getElementsByClassName('button-win-1')[0];
     var newGameWin2 = document.getElementsByClassName('button-win-2')[0];
     var newGameDraw = document.getElementsByClassName('button-draw')[0];
 
-    // When the page loads, the startup screen should appear.
+    // When the page loads, the start screen should appear. Hide the other screens
     window.onload = function () {
         board.style.display = 'none';
         screenWin1Div.style.display = 'none';
@@ -24,12 +23,9 @@ var ticTacToeModule = +function () {
         drawScreen.style.display = 'none';
     };
 
-    // When the start button is clicked, display the in progress board and hide the start screen.
+    // When the start button is clicked, display the board and hide the start screen. Player 1 is active
     startButton.addEventListener("click", function (event) {
         screenStartDiv.style.display = 'none';
-        screenWin1Div.style.display = 'none';
-        screenWin2Div.style.display = 'none';
-        drawScreen.style.display = 'none';
         board.style.display = 'block';
         playerListItem1.classList.add('active');
     });
@@ -229,4 +225,4 @@ var ticTacToeModule = +function () {
             }
         }, false);
     }
-} ();
+}();
