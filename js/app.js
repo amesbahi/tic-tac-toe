@@ -173,21 +173,20 @@ var ticTacToeModule = +function () {
     // When the user clicks a box, add class to selected box and switch active player and hover state
     for (var i = 0; i < boxes.length; i++) {
         var box = boxes[i];
+
         box.addEventListener('mouseover', function (event) {
             if (playerX.turn && playerListItem1.className == 'players active' && this.className != 'box box-filled-2'
-                && this.className != 'box box-filled-1' && this.className != 'box box-filled-1 box-filled-2') {
+                && this.className != 'box box-filled-1') {
                 this.classList.add('xSVG');
             }
             if (playerO.turn && playerListItem2.className == 'players active' && this.className != 'box box-filled-2'
-                && this.className != 'box box-filled-1' && this.className != 'box box-filled-1 box-filled-2' &&
-                this.className != 'box box-filled-2 box-filled-1') {
+                && this.className != 'box box-filled-1') {
                 this.classList.add('oSVG');
             }
         }, false);
 
         box.addEventListener('mouseout', function (event) {
-            if ((this.className != 'box-filled-2' || this.className != 'box-filled-1') || this.className !=
-                'box box-filled-1 box-filled-2' || this.className != 'box box-filled-2 box-filled-1') {
+            if (this.className != 'box-filled-2' || this.className != 'box-filled-1') {
                 this.classList.remove('xSVG');
                 this.classList.remove('oSVG');
             }
