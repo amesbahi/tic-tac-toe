@@ -163,12 +163,10 @@ var ticTacToeModule = +function () {
 
     // Hover function
     var hover = function () {
-        if (playerX.turn && playerListItem1.className == 'players active' && this.className != 'box box-filled-2'
-            && this.className != 'box box-filled-1') {
+        if (playerX.turn && playerListItem1.className == 'players active' && this.className != 'box box-filled-2' && this.className != 'box box-filled-1') {
             this.classList.add('xSVG');
         }
-        if (playerO.turn && playerListItem2.className == 'players active' && this.className != 'box box-filled-2'
-            && this.className != 'box box-filled-1') {
+        if (playerO.turn && playerListItem2.className == 'players active' && this.className != 'box box-filled-2' && this.className != 'box box-filled-1') {
             this.classList.add('oSVG');
         }
     };
