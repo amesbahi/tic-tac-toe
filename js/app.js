@@ -37,14 +37,6 @@ var ticTacToeModule = +function () {
         this.listitem = document.getElementById(listitem);
     }
 
-    PlayerObject.prototype.turnTrue = function () {
-        this.turn = true;
-    }
-
-    PlayerObject.prototype.turnFalse = function () {
-        this.turn = false;
-    }
-
     // Player X contructor function; inherits from player object.
     function Player1(name, listitem) {
         PlayerObject.call(this, name, listitem);
@@ -66,7 +58,7 @@ var ticTacToeModule = +function () {
     // If it's X's turn, set O turn to false; vice versa.
     // The current player is indicated at the top of the page -- the box with the symbol O or X 
     // is highlighted for the current player.
-    playerX.turnTrue();
+    playerX.turn = true;
 
     // The game ends when one player has three of their symbols in a row either horizontally, vertically or diagonally.
     // Arrays to hold the indices of the selected boxesx
@@ -94,8 +86,8 @@ var ticTacToeModule = +function () {
         }
         playerListItem1.classList.add('active');
         playerListItem2.classList.remove('active');
-        playerX.turnTrue();
-        playerO.turnFalse();
+        playerX.turn = true;
+        playerO.turn = false;
         board.style.display = 'block';
         screenWin1Div.style.display = 'none';
         screenWin2Div.style.display = 'none';
@@ -169,59 +161,64 @@ var ticTacToeModule = +function () {
         newGame();
     });
 
+    // Hover function
+    var hover = function () {
+        if (playerX.turn && playerListItem1.className == 'players active' && this.className != 'box box-filled-2'
+            && this.className != 'box box-filled-1') {
+            this.classList.add('xSVG');
+        }
+        if (playerO.turn && playerListItem2.className == 'players active' && this.className != 'box box-filled-2'
+            && this.className != 'box box-filled-1') {
+            this.classList.add('oSVG');
+        }
+    };
+
+    // Hover out function
+    var hoverOut = function () {
+        if (this.className != 'box-filled-2' || this.className != 'box-filled-1') {
+            this.classList.remove('xSVG');
+            this.classList.remove('oSVG');
+        }
+    };
+
+    var boxClick = function () {
+        if (playerX.turn && playerListItem1.className == 'players active') {
+            if (this.className != 'box box-filled-2' && this.className != 'box box-filled-1') {
+                // add the symbol by adding the CSS class
+                this.classList.add('box-filled-1');
+                // remove SVG hover so user cannot click same box again without mousing out
+                this.classList.remove('xSVG');
+                // switch active players
+                playerListItem1.classList.remove('active');
+                playerListItem2.classList.add('active');
+                playerX.turn = false;
+                playerO.turn = true;
+                playerXCheckedBoxes.push(boxes.indexOf(this));
+                isGameOver();
+            }
+        } else if (playerO.turn && playerListItem2.className == 'players active') {
+            if (this.className != 'box box-filled-1' && this.className != 'box box-filled-2') {
+                // add the symbol by adding the CSS class
+                this.classList.add('box-filled-2');
+                // remove SVG hover so user cannot click same box again without mousing out
+                this.classList.remove('oSVG');
+                // switch active players
+                playerListItem2.classList.remove('active');
+                playerListItem1.classList.add('active');
+                playerO.turn = false;
+                playerX.turn = true;
+                playerOCheckedBoxes.push(boxes.indexOf(this));
+                isGameOver();
+            }
+        }
+    };
+
     // Loop over the boxes; when user is hovering over one, add the CSS class to that box
     // When the user clicks a box, add class to selected box and switch active player and hover state
     for (var i = 0; i < boxes.length; i++) {
         var box = boxes[i];
-
-        box.addEventListener('mouseover', function (event) {
-            if (playerX.turn && playerListItem1.className == 'players active' && this.className != 'box box-filled-2'
-                && this.className != 'box box-filled-1') {
-                this.classList.add('xSVG');
-            }
-            if (playerO.turn && playerListItem2.className == 'players active' && this.className != 'box box-filled-2'
-                && this.className != 'box box-filled-1') {
-                this.classList.add('oSVG');
-            }
-        }, false);
-
-        box.addEventListener('mouseout', function (event) {
-            if (this.className != 'box-filled-2' || this.className != 'box-filled-1') {
-                this.classList.remove('xSVG');
-                this.classList.remove('oSVG');
-            }
-        }, false);
-
-        box.addEventListener('click', function (event) {
-            if (playerX.turn && playerListItem1.className == 'players active') {
-                if (this.className != 'box box-filled-2' && this.className != 'box box-filled-1') {
-                    // add the symbol by adding the CSS class
-                    this.classList.add('box-filled-1');
-                    // remove SVG hover so user cannot click same box again without mousing out
-                    this.classList.remove('xSVG');
-                    // switch active players
-                    playerListItem1.classList.remove('active');
-                    playerListItem2.classList.add('active');
-                    playerX.turnFalse();
-                    playerO.turnTrue();
-                    playerXCheckedBoxes.push(boxes.indexOf(this));
-                    isGameOver();
-                }
-            } else if (playerO.turn && playerListItem2.className == 'players active') {
-                if (this.className != 'box box-filled-1' && this.className != 'box box-filled-2') {
-                    // add the symbol by adding the CSS class
-                    this.classList.add('box-filled-2');
-                    // remove SVG hover so user cannot click same box again without mousing out
-                    this.classList.remove('oSVG');
-                    // switch active players
-                    playerListItem2.classList.remove('active');
-                    playerListItem1.classList.add('active');
-                    playerO.turnFalse();
-                    playerX.turnTrue();
-                    playerOCheckedBoxes.push(boxes.indexOf(this));
-                    isGameOver();
-                }
-            }
-        }, false);
+        box.addEventListener('mouseover', hover, false);
+        box.addEventListener('mouseout', hoverOut, false);
+        box.addEventListener('click', boxClick, false);
     }
-}();
+} ();
